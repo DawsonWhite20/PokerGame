@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Poker implements HandType {
@@ -34,8 +35,11 @@ public class Poker implements HandType {
 
         // Game starts here and loops for each round the player wants to play
         do{
-            // Make method to shuffle deck next
+            deck.shuffleDeck();
             dealCards(players, deck);
+            for(int i = 0;i < players.length;i++) {
+
+            }
             playerChoice = 5; // Ends loop immediately for testing purposes
         }while (playerChoice != 5);
 

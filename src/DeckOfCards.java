@@ -1,8 +1,10 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class DeckOfCards {
 
     private ArrayList<String> deck = new ArrayList<String>();
+
 
     public DeckOfCards() {
         String[] suite = new String[] {"Clubs", "Diamonds", "Hearts", "Spades"};
@@ -19,5 +21,15 @@ public class DeckOfCards {
         String nextCard = deck.get(deck.size()-1);
         deck.remove(deck.size()-1);
         return nextCard;
+    }
+
+    public void shuffleDeck() {
+        ArrayList<String> shuffledDeck = new ArrayList<String>();
+        Random random = new Random();
+        for(int i = 0;i < 52;i++) {
+            int index = random.nextInt(deck.size());
+            shuffledDeck.add(deck.remove(index));
+        }
+        deck = shuffledDeck;
     }
 }
