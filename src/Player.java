@@ -4,6 +4,7 @@ public class Player {
 
     private int money;
     private String name;
+    private static String[] communityCards = new String[5];
     private ArrayList<String> hand = new ArrayList<String>();
 
     public Player(String name) {
@@ -21,6 +22,10 @@ public class Player {
 
     public void subtractMoney(int amount) {
         money -= amount;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public ArrayList<String> getHand() {

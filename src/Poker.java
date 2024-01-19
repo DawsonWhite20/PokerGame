@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Poker implements HandType {
@@ -9,22 +10,41 @@ public class Poker implements HandType {
             }
         }
     }
+
+    public static int organizeBets(Player bettingPlayer, int bettingAmount, int pot) {
+        bettingPlayer.subtractMoney(bettingAmount);
+        pot += bettingAmount;
+        return pot;
+    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         DeckOfCards deck = new DeckOfCards();
-        int playerChoice = 0;
+        int numPlayers = 0;
 
-        // Research and add try/catch blocks
+        System.out.println("Welcome to your Poker Game!\n");
         // Asks user for number of players
-        System.out.print("Welcome to your Poker game!\n\nHow many players do you have: ");
-        int numPlayers = scanner.nextInt();
+        while (true) {
+            try {
+                System.out.print("How many players are playing? (minimum of 2; maximum of 10): ");
+                numPlayers = scanner.nextInt();
+                if (numPlayers < 2 || numPlayers > 10) {
+                    System.out.println("Player count must be between 2 and 10 players.");
+                    continue;
+                }
+                break;
+            } catch (InputMismatchException ime) {
+                System.out.println("Please enter a number to indicate how many people are playing.");
+                System.out.println();
+                scanner.nextLine();
+            }
+        }
         System.out.println();
         Player[] players = new Player[numPlayers];
         scanner.nextLine();
 
-        // Player enters user names
+        // Players are given names and added to a rotation
         System.out.println("Please give a name to each player.");
-        for(int i = 0;i < numPlayers;i++) {
+        for (int i = 0; i < numPlayers; i++) {
             int currentPlayer = i + 1;
             System.out.print("Enter player " + currentPlayer + "'s name: ");
             String playerName = scanner.nextLine();
@@ -34,14 +54,24 @@ public class Poker implements HandType {
         System.out.println();
 
         // Game starts here and loops for each round the player wants to play
-        do{
+        int timesPlayed = 0; // Used to keep track of blinds for each round
+        int bigBlind = timesPlayed + 2;
+        int pot = 0;
+        int playerChoice;
+        do {
             deck.shuffleDeck();
             dealCards(players, deck);
-            for(int i = 0;i < players.length;i++) {
+
+            System.out.print(players[bigBlind].getName() + ", you are the Big Blind this round. How much would you like to bet: ");
+            int betAmount = scanner.nextInt();
+            pot = organizeBets(players[bigBlind], betAmount, pot); // Find a more efficient way to update the pot
+            System.out.println(players[bigBlind - 1].getName() + ", you are the Small Blind this round, so you must bet half of what " + players[bigBlind].getName() + " bet.");
+            pot = organizeBets(players[bigBlind - 1], betAmount / 2, pot);
+            for (int i = 0; i < players.length; i++) {
 
             }
             playerChoice = 5; // Ends loop immediately for testing purposes
-        }while (playerChoice != 5);
+        } while (playerChoice != 5);
 
     }
 }
