@@ -21,6 +21,9 @@ public class Player {
     }
 
     public void subtractMoney(int amount) {
+        if (money - amount < 0) {
+            System.out.println("You do not have enough money to bet that much.");
+        }
         money -= amount;
     }
 

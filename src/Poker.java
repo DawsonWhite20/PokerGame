@@ -44,7 +44,7 @@ public class Poker implements HandType {
 
         // Players are given names and added to a rotation
         System.out.println("Please give a name to each player.");
-        for (int i = 0; i < numPlayers; i++) {
+        for (int i = 0;i < numPlayers;i++) {
             int currentPlayer = i + 1;
             System.out.print("Enter player " + currentPlayer + "'s name: ");
             String playerName = scanner.nextLine();
@@ -62,12 +62,15 @@ public class Poker implements HandType {
             deck.shuffleDeck();
             dealCards(players, deck);
 
-            System.out.print(players[bigBlind].getName() + ", you are the Big Blind this round. How much would you like to bet: ");
-            int betAmount = scanner.nextInt();
-            pot = organizeBets(players[bigBlind], betAmount, pot); // Find a more efficient way to update the pot
-            System.out.println(players[bigBlind - 1].getName() + ", you are the Small Blind this round, so you must bet half of what " + players[bigBlind].getName() + " bet.");
-            pot = organizeBets(players[bigBlind - 1], betAmount / 2, pot);
-            for (int i = 0; i < players.length; i++) {
+            if(players.length > 2) {
+                System.out.print(players[bigBlind].getName() + ", you are the Big Blind this round. How much would you like to bet: ");
+                int betAmount = scanner.nextInt();
+                pot = organizeBets(players[bigBlind], betAmount, pot); // Find a more efficient way to update the pot
+                System.out.println(players[bigBlind - 1].getName() + ", you are the Small Blind this round, so you must bet half of what " + players[bigBlind].getName() + " bet.");
+                pot = organizeBets(players[bigBlind - 1], betAmount / 2, pot);
+            }
+            for (int i = 0;i < players.length;i++) {
+            // Maybe wrap this for loop in a do while loop
 
             }
             playerChoice = 5; // Ends loop immediately for testing purposes
