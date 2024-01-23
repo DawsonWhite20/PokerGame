@@ -6,6 +6,7 @@ public class Player {
     private String name;
     private static String[] communityCards = new String[5];
     private ArrayList<String> hand = new ArrayList<String>();
+    Player next;
 
     public Player(String name) {
         money = 500;
