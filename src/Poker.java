@@ -72,6 +72,9 @@ public class Poker implements HandType {
             deck.shuffleDeck();
             dealCards(players, deck);
 
+            for(int i = bigBlind + 1;i < players.length;i++) {
+                // Override toString() in Player to display player information
+            }
             playerChoice = 5; // Ends loop immediately for testing purposes
         } while (playerChoice != 5);
 
