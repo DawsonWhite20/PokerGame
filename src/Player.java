@@ -5,8 +5,8 @@ public class Player {
     private int money;
     private String name;
     private static String[] communityCards = new String[5];
-    private ArrayList<String> hand = new ArrayList<String>();
-    Player next;
+    private String[] hand = new String[7];
+    Player next; // Delete if not useful
 
     public Player(String name) {
         money = 500;
@@ -32,7 +32,7 @@ public class Player {
         return name;
     }
 
-    public ArrayList<String> getHand() {
+    public String[] getHand() {
         return hand;
     }
 }

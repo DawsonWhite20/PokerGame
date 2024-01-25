@@ -6,7 +6,7 @@ public class Poker implements HandType {
     public static void dealCards(Player[] playerList, DeckOfCards deck) {
         for(int i = 0;i < 2;i++) {
             for(int j = 0;j < playerList.length;j++) {
-                playerList[j].getHand().add(deck.getNextCard());
+                playerList[j].getHand()[i] = deck.getNextCard();
             }
         }
     }
@@ -69,11 +69,17 @@ public class Poker implements HandType {
                 pot = organizeBets(players[bigBlind - 1], betAmount / 2, pot);
             }
 
+            System.out.println();
             deck.shuffleDeck();
             dealCards(players, deck);
 
+            if(bigBlind + 1 >= players.length) {
+                bigBlind = -1;
+            }
             for(int i = bigBlind + 1;i < players.length;i++) {
                 // Override toString() in Player to display player information
+                System.out.println(players[i].getName() + ", it is your turn. What would you like to do?\n");
+                System.out.println("(1) Display hand\n(2) Call\n(3) Raise\n(4) Fold\n");
             }
             playerChoice = 5; // Ends loop immediately for testing purposes
         } while (playerChoice != 5);
