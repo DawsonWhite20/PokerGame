@@ -1,4 +1,4 @@
-public class Rotation {
+public class Rotation { // Delete class if found not useful
 // Circular Linked List used for the turn-based part of the game
     private Player head;
     private Player tail;

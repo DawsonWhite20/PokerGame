@@ -5,7 +5,11 @@ public class Player {
     private int money;
     private String name;
     private static String[] communityCards = new String[5];
-    private String[] hand = new String[7];
+    /*
+    Hand is split up so that the turn, flop, and river will be more efficiently given out, and it comes together to check for hand types at the end of game.
+     */
+    private String[] individualCards = new String[2];
+    private String[] hand = {individualCards[0], individualCards[1], communityCards[0], communityCards[1], communityCards[2], communityCards[3], communityCards[4]};
     Player next; // Delete if not useful
 
     public Player(String name) {
@@ -34,5 +38,18 @@ public class Player {
 
     public String[] getHand() {
         return hand;
+    }
+
+    @Override
+    public String toString() {
+        System.out.println("----------------");
+        System.out.println("Current Cards:");
+        for(int i = 0;i < hand.length;i++) {
+            if (hand[i] == null) {
+                break;
+            }
+            System.out.println(hand[i]);
+        }
+        return "\nMoney: $" + money + "\n----------------\n";
     }
 }

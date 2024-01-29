@@ -32,7 +32,7 @@ public class Poker implements HandType {
                     continue;
                 }
                 break;
-            } catch (InputMismatchException ime) {
+            } catch (InputMismatchException inputMismatchException) {
                 System.out.println("Please enter a number to indicate how many people are playing.");
                 System.out.println();
                 scanner.nextLine();
@@ -59,7 +59,7 @@ public class Poker implements HandType {
         int timesPlayed = 0; // Used to keep track of blinds for each round
         int bigBlind = timesPlayed + 2;
         int pot = 0;
-        int playerChoice;
+        int playerChoice = 0;
         do {
             if(players.length > 2) {
                 System.out.print(players[bigBlind].getName() + ", you are the Big Blind this round. How much would you like to bet: ");
@@ -73,13 +73,35 @@ public class Poker implements HandType {
             deck.shuffleDeck();
             dealCards(players, deck);
 
-            if(bigBlind + 1 >= players.length) {
+            if (bigBlind + 1 >= players.length) {
                 bigBlind = -1;
             }
-            for(int i = bigBlind + 1;i < players.length;i++) {
+            for(int i = bigBlind + 1;i < players.length;i++) { // Figure out how to do rotation after coding actions
                 // Override toString() in Player to display player information
-                System.out.println(players[i].getName() + ", it is your turn. What would you like to do?\n");
-                System.out.println("(1) Display hand\n(2) Call\n(3) Raise\n(4) Fold\n");
+                while (true) {
+                    try {
+                        System.out.println(players[i].getName() + ", it is your turn. What would you like to do?\n----------------");
+                        System.out.println("(1) Display hand and money\n(2) Call\n(3) Raise\n(4) Fold"); // First round actions
+                        scanner.nextLine();
+                        playerChoice = scanner.nextInt();
+                        if (playerChoice < 1 || playerChoice > 4) {
+                            System.out.println();
+                            System.out.println("That is not a valid choice.\n");
+                            continue;
+                        }
+                        break;
+                    } catch (InputMismatchException inputMismatchException) {
+                        System.out.println();
+                        System.out.println("Please select a number corresponding with the action you want to perform.\n");
+                    }
+                }
+                System.out.println();
+                
+                switch(playerChoice) {
+                    case 1:
+                        System.out.println(players[i].toString());
+                        break;
+                }
             }
             playerChoice = 5; // Ends loop immediately for testing purposes
         } while (playerChoice != 5);
