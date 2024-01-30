@@ -40,8 +40,7 @@ public class Player {
         return hand;
     }
 
-    @Override
-    public String toString() {
+    public void displayPlayerInformation() {
         System.out.println("----------------");
         System.out.println("Current Cards:");
         for(int i = 0;i < hand.length;i++) {
@@ -50,6 +49,6 @@ public class Player {
             }
             System.out.println(hand[i]);
         }
-        return "\nMoney: $" + money + "\n----------------\n";
+        System.out.println("\nMoney: $" + money + "\n----------------\n");
     }
 }

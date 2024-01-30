@@ -14,6 +14,8 @@ public class Poker implements HandType {
     public static int organizeBets(Player bettingPlayer, int bettingAmount, int pot) {
         bettingPlayer.subtractMoney(bettingAmount);
         pot += bettingAmount;
+        System.out.println(bettingPlayer.getName() + " has bet $" + bettingAmount + " making the pot now $" + pot + ".");
+        System.out.println();
         return pot;
     }
     public static void main(String[] args) {
@@ -60,10 +62,11 @@ public class Poker implements HandType {
         int bigBlind = timesPlayed + 2;
         int pot = 0;
         int playerChoice = 0;
+        int betAmount = 0;
         do {
             if(players.length > 2) {
                 System.out.print(players[bigBlind].getName() + ", you are the Big Blind this round. How much would you like to bet: ");
-                int betAmount = scanner.nextInt();
+                betAmount = scanner.nextInt();
                 pot = organizeBets(players[bigBlind], betAmount, pot); // Find a more efficient way to update the pot
                 System.out.println(players[bigBlind - 1].getName() + ", you are the Small Blind this round, so you must bet half of what " + players[bigBlind].getName() + " bet.");
                 pot = organizeBets(players[bigBlind - 1], betAmount / 2, pot);
@@ -77,11 +80,14 @@ public class Poker implements HandType {
                 bigBlind = -1;
             }
             for(int i = bigBlind + 1;i < players.length;i++) { // Figure out how to do rotation after coding actions
-                // Override toString() in Player to display player information
                 while (true) {
                     try {
                         System.out.println(players[i].getName() + ", it is your turn. What would you like to do?\n----------------");
-                        System.out.println("(1) Display hand and money\n(2) Call\n(3) Raise\n(4) Fold"); // First round actions
+                        System.out.println("""
+                                (1) Display hand and money
+                                (2) Call
+                                (3) Raise
+                                (4) Fold"""); // First round actions
                         scanner.nextLine();
                         playerChoice = scanner.nextInt();
                         if (playerChoice < 1 || playerChoice > 4) {
@@ -99,8 +105,13 @@ public class Poker implements HandType {
                 
                 switch(playerChoice) {
                     case 1:
-                        System.out.println(players[i].toString());
+                        players[i].displayPlayerInformation();
                         break;
+                    case 2:
+                        pot = organizeBets(players[i], betAmount, pot);
+                        break;
+                    case 3:
+
                 }
             }
             playerChoice = 5; // Ends loop immediately for testing purposes
