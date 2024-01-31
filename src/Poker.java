@@ -61,8 +61,9 @@ public class Poker implements HandType {
         int timesPlayed = 0; // Used to keep track of blinds for each round
         int bigBlind = timesPlayed + 2;
         int pot = 0;
-        int playerChoice = 0;
+        int playerChoice;
         int betAmount = 0;
+        int numTimesRaised = 0;
         do {
             if(players.length > 2) {
                 System.out.print(players[bigBlind].getName() + ", you are the Big Blind this round. How much would you like to bet: ");
@@ -111,7 +112,10 @@ public class Poker implements HandType {
                         pot = organizeBets(players[i], betAmount, pot);
                         break;
                     case 3:
-
+                        // Raise action
+                        break;
+                    case 4:
+                        // Maybe use priority queue to take players out of the array and set them up to sit in the correct place for next game
                 }
             }
             playerChoice = 5; // Ends loop immediately for testing purposes
