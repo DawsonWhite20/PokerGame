@@ -6,11 +6,11 @@ public class Player {
     private String name;
     private static String[] communityCards = new String[5];
     /*
-    Hand is split up so that the turn, flop, and river will be more efficiently given out, and it comes together to check for hand types at the end of game.
+    Hand is split up so that the turn, flop, and river will be more efficiently given out,
+    and it comes together to check for hand types at the end of game.
      */
     private String[] individualCards = new String[2];
     private String[] hand = {individualCards[0], individualCards[1], communityCards[0], communityCards[1], communityCards[2], communityCards[3], communityCards[4]};
-    Player next; // Delete if not useful
 
     public Player(String name) {
         money = 500;

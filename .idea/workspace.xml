@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7b82a671-4ea8-4448-83c3-28582ae63476" name="Changes" comment="Implemented formatting changes to first round menu and added &quot;call&quot; action functionality.">
+    <list default="true" id="7b82a671-4ea8-4448-83c3-28582ae63476" name="Changes" comment="Added a few ideas in comments.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Poker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Poker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Rotation.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +121,14 @@
       <option name="project" value="LOCAL" />
       <updated>1706639059181</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Added a few ideas in comments.">
+      <created>1706744068580</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1706744068580</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -142,6 +151,7 @@
     <MESSAGE value="Scrapping circular linked list idea; started rotation code in Poker.java." />
     <MESSAGE value="Added first action for first round of poker game and added a try/catch block" />
     <MESSAGE value="Implemented formatting changes to first round menu and added &quot;call&quot; action functionality." />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented formatting changes to first round menu and added &quot;call&quot; action functionality." />
+    <MESSAGE value="Added a few ideas in comments." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added a few ideas in comments." />
   </component>
 </project>
