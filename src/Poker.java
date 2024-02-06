@@ -88,7 +88,7 @@ public class Poker implements HandType {
                                 (2) Call
                                 (3) Raise
                                 (4) Fold"""); // First round actions
-                        scanner.nextLine();
+                        //scanner.nextLine();
                         playerChoice = scanner.nextInt();
                         if (playerChoice < 1 || playerChoice > 4) {
                             System.out.println();
@@ -106,6 +106,7 @@ public class Poker implements HandType {
                 switch(playerChoice) {
                     case 1:
                         players.get(i).displayPlayerInformation();
+                        System.out.println();
                         break;
                     case 2:
                         pot = organizeBets(players.get(i), betAmount, pot);
@@ -124,7 +125,8 @@ public class Poker implements HandType {
                         }
                         break;
                     case 4:
-
+                        System.out.println(players.get(i).getName() + " has folded.");
+                        System.out.println();
                 }
             }
             playerChoice = 5; // Ends loop immediately for testing purposes
