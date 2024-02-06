@@ -3,10 +3,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Poker implements HandType {
-    public static void dealCards(Player[] playerList, DeckOfCards deck) {
+    public static void dealCards(ArrayList<Player> playerList, DeckOfCards deck) {
         for(int i = 0;i < 2;i++) {
-            for(int j = 0;j < playerList.length;j++) {
-                playerList[j].getHand()[i] = deck.getNextCard();
+            for(int j = 0;j < playerList.size();j++) {
+                playerList.get(j).getHand()[i] = deck.getNextCard();
             }
         }
     }
@@ -40,7 +40,7 @@ public class Poker implements HandType {
             }
         }
         System.out.println();
-        Player[] players = new Player[numPlayers];
+        ArrayList<Player> players = new ArrayList<Player>(numPlayers);
         scanner.nextLine();
 
         // Players are given names and added to a rotation
@@ -50,9 +50,9 @@ public class Poker implements HandType {
             System.out.print("Enter player " + currentPlayer + "'s name: ");
             String playerName = scanner.nextLine();
             Player newPlayer = new Player(playerName);
-            players[i] = newPlayer;
+            players.add(newPlayer);
         }
-        Player[] foldedPlayers = new Player[players.length]; // Holds players that have folded to be added into the round after
+        Player[] foldedPlayers = new Player[players.size()]; // Holds players that have folded to be added into the round after
         System.out.println();
 
         // Game starts here and loops for each round the player wants to play
@@ -63,26 +63,26 @@ public class Poker implements HandType {
         int betAmount = 0;
         int numTimesRaised = 0; // Used to keep track of what the minimum raise is
         do {
-            if(players.length > 2) {
-                System.out.print(players[bigBlind].getName() + ", you are the Big Blind this round. How much would you like to bet: ");
+            if(players.size() > 2) {
+                System.out.print(players.get(bigBlind).getName() + ", you are the Big Blind this round. How much would you like to bet: ");
                 betAmount = scanner.nextInt();
-                pot = organizeBets(players[bigBlind], betAmount, pot); // Find a more efficient way to update the pot
+                pot = organizeBets(players.get(bigBlind), betAmount, pot); // Find a more efficient way to update the pot
                 System.out.println();
-                System.out.println(players[bigBlind - 1].getName() + ", you are the Small Blind this round, so you must bet half of what " + players[bigBlind].getName() + " bet.");
-                pot = organizeBets(players[bigBlind - 1], betAmount / 2, pot);
+                System.out.println(players.get(bigBlind - 1).getName() + ", you are the Small Blind this round, so you must bet half of what " + players.get(bigBlind).getName() + " bet.");
+                pot = organizeBets(players.get(bigBlind - 1), betAmount / 2, pot);
             }
 
             System.out.println();
             deck.shuffleDeck();
             dealCards(players, deck);
 
-            if (bigBlind + 1 >= players.length) {
+            if (bigBlind + 1 >= players.size()) {
                 bigBlind = -1;
             }
-            for(int i = bigBlind + 1;i < players.length;i++) { // Figure out how to do rotation after coding actions
+            for(int i = bigBlind + 1;i < players.size();i++) { // Figure out how to do rotation after coding actions
                 while (true) {
                     try {
-                        System.out.println(players[i].getName() + ", it is your turn. What would you like to do?\n----------------");
+                        System.out.println(players.get(i).getName() + ", it is your turn. What would you like to do?\n----------------");
                         System.out.println("""
                                 (1) Display hand and money
                                 (2) Call
@@ -105,16 +105,16 @@ public class Poker implements HandType {
                 
                 switch(playerChoice) {
                     case 1:
-                        players[i].displayPlayerInformation();
+                        players.get(i).displayPlayerInformation();
                         break;
                     case 2:
-                        pot = organizeBets(players[i], betAmount, pot);
+                        pot = organizeBets(players.get(i), betAmount, pot);
                         break;
                     case 3:
                         System.out.print("How much would you like to raise: ");
                         int raiseAmount = scanner.nextInt();
                         if(raiseAmount >= betAmount) {
-                            pot = organizeBets(players[i], raiseAmount + betAmount, pot);
+                            pot = organizeBets(players.get(i), raiseAmount + betAmount, pot);
                             numTimesRaised++;
                             betAmount += raiseAmount;
                             System.out.println("The new highest bet is $" + betAmount + ".\n");
@@ -124,6 +124,7 @@ public class Poker implements HandType {
                         }
                         break;
                     case 4:
+
                 }
             }
             playerChoice = 5; // Ends loop immediately for testing purposes
