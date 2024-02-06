@@ -79,7 +79,7 @@ public class Poker implements HandType {
             if (bigBlind + 1 >= players.size()) {
                 bigBlind = -1;
             }
-            for(int i = bigBlind + 1;i < players.size();i++) { // Figure out how to do rotation after coding actions
+            for(int i = bigBlind + 1;i < players.size() - 2;i++) { // Figure out how to do rotation after coding actions
                 while (true) {
                     try {
                         System.out.println(players.get(i).getName() + ", it is your turn. What would you like to do?\n----------------");
@@ -102,7 +102,7 @@ public class Poker implements HandType {
                     }
                 }
                 System.out.println();
-                
+
                 switch(playerChoice) {
                     case 1:
                         players.get(i).displayPlayerInformation();
@@ -126,7 +126,12 @@ public class Poker implements HandType {
                         break;
                     case 4:
                         System.out.println(players.get(i).getName() + " has folded.");
+                        foldedPlayers[i] = players.remove(i);
+                        for(int j = 0;j < players.size();j++) {
+                            System.out.println(players.get(j).getName());
+                        }
                         System.out.println();
+                        break;
                 }
             }
             playerChoice = 5; // Ends loop immediately for testing purposes
