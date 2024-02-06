@@ -17,6 +17,11 @@ public class Poker implements HandType {
         System.out.println(bettingPlayer.getName() + " has bet $" + bettingAmount + " making the pot now $" + pot + ".");
         return pot;
     }
+
+    public static void displayCardsAndMoney(Player requestedPlayer) {
+        requestedPlayer.displayPlayerInformation();
+        System.out.println();
+    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         DeckOfCards deck = new DeckOfCards();
@@ -79,7 +84,7 @@ public class Poker implements HandType {
             if (bigBlind + 1 >= players.size()) {
                 bigBlind = -1;
             }
-            for(int i = bigBlind + 1;i < players.size() - 2;i++) { // Figure out how to do rotation after coding actions
+            for(int i = bigBlind + 1;i < players.size();i++) { // Figure out how to do rotation after coding actions
                 while (true) {
                     try {
                         System.out.println(players.get(i).getName() + ", it is your turn. What would you like to do?\n----------------");
@@ -105,8 +110,7 @@ public class Poker implements HandType {
 
                 switch(playerChoice) {
                     case 1:
-                        players.get(i).displayPlayerInformation();
-                        System.out.println();
+                        displayCardsAndMoney(players.get(i));
                         break;
                     case 2:
                         pot = organizeBets(players.get(i), betAmount, pot);
