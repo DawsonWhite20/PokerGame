@@ -11,20 +11,39 @@ public class Poker implements HandType {
         }
     }
 
-    public static int organizeBets(Player bettingPlayer, int bettingAmount, int pot) {
+    public static void organizeBets(Player bettingPlayer, int bettingAmount, Pot pot) {
         bettingPlayer.subtractMoney(bettingAmount);
-        pot += bettingAmount;
-        System.out.println(bettingPlayer.getName() + " has bet $" + bettingAmount + " making the pot now $" + pot + ".");
-        return pot;
+        pot.addMoney(bettingAmount);
+        System.out.println(bettingPlayer.getName() + " has bet $" + bettingAmount + " making the pot now $" + pot.getMoney() + ".");
     }
 
-    public static void displayCardsAndMoney(Player requestedPlayer) {
+    public static void displayCardsAndMoney(Player requestedPlayer) { // Maybe make methods below into an interface
         requestedPlayer.displayPlayerInformation();
+        System.out.println();
+    }
+
+    public static void raise(Scanner scanner, int betAmount, Player requestedPlayer, Pot pot) {
+        System.out.print("How much would you like to raise: ");                    // Need to update betAmount
+        int raiseAmount = scanner.nextInt();
+        if(raiseAmount >= betAmount) {
+            organizeBets(requestedPlayer, raiseAmount + betAmount, pot);
+            betAmount += raiseAmount;
+            System.out.println("The new highest bet is $" + betAmount + ".\n");
+        }
+        else if(raiseAmount < betAmount ) {
+            System.out.println("You must raise at least $" + betAmount + ".\n");
+        }
+    }
+
+    public static void fold(Player requestedPlayer, Player[] foldedPlayers, int position, ArrayList<Player> players) {
+        System.out.println(requestedPlayer.getName() + " has folded.");
+        foldedPlayers[position] = players.remove(position);
         System.out.println();
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         DeckOfCards deck = new DeckOfCards();
+        Pot pot = new Pot();
         int numPlayers = 0;
 
         System.out.println("Welcome to your Poker Game!\n");
@@ -63,7 +82,6 @@ public class Poker implements HandType {
         // Game starts here and loops for each round the player wants to play
         int timesPlayed = 0; // Used to keep track of blinds for each round
         int bigBlind = timesPlayed + 2;
-        int pot = 0;
         int playerChoice;
         int betAmount = 0;
         int numTimesRaised = 0; // Used to keep track of what the minimum raise is
@@ -71,10 +89,10 @@ public class Poker implements HandType {
             if(players.size() > 2) {
                 System.out.print(players.get(bigBlind).getName() + ", you are the Big Blind this round. How much would you like to bet: ");
                 betAmount = scanner.nextInt();
-                pot = organizeBets(players.get(bigBlind), betAmount, pot); // Find a more efficient way to update the pot
+                organizeBets(players.get(bigBlind), betAmount,pot); // Find a more efficient way to update the pot
                 System.out.println();
                 System.out.println(players.get(bigBlind - 1).getName() + ", you are the Small Blind this round, so you must bet half of what " + players.get(bigBlind).getName() + " bet.");
-                pot = organizeBets(players.get(bigBlind - 1), betAmount / 2, pot);
+                organizeBets(players.get(bigBlind - 1), betAmount / 2, pot);
             }
 
             System.out.println();
@@ -113,28 +131,13 @@ public class Poker implements HandType {
                         displayCardsAndMoney(players.get(i));
                         break;
                     case 2:
-                        pot = organizeBets(players.get(i), betAmount, pot);
+                        organizeBets(players.get(i), betAmount, pot);
                         break;
                     case 3:
-                        System.out.print("How much would you like to raise: ");
-                        int raiseAmount = scanner.nextInt();
-                        if(raiseAmount >= betAmount) {
-                            pot = organizeBets(players.get(i), raiseAmount + betAmount, pot);
-                            numTimesRaised++;
-                            betAmount += raiseAmount;
-                            System.out.println("The new highest bet is $" + betAmount + ".\n");
-                        }
-                        else if(raiseAmount < betAmount ) {
-                            System.out.println("You must raise at least $" + betAmount + ".\n");
-                        }
+                        raise(scanner, betAmount, players.get(i), pot);
                         break;
                     case 4:
-                        System.out.println(players.get(i).getName() + " has folded.");
-                        foldedPlayers[i] = players.remove(i);
-                        for(int j = 0;j < players.size();j++) {
-                            System.out.println(players.get(j).getName());
-                        }
-                        System.out.println();
+                        fold(players.get(i), foldedPlayers, i, players);
                         break;
                 }
             }
