@@ -83,16 +83,15 @@ public class Poker implements HandType {
         int timesPlayed = 0; // Used to keep track of blinds for each round
         int bigBlind = timesPlayed + 2;
         int playerChoice;
-        int betAmount = 0;
-        int numTimesRaised = 0; // Used to keep track of what the minimum raise is
         do {
             if(players.size() > 2) {
                 System.out.print(players.get(bigBlind).getName() + ", you are the Big Blind this round. How much would you like to bet: ");
-                betAmount = scanner.nextInt();
-                organizeBets(players.get(bigBlind), betAmount,pot); // Find a more efficient way to update the pot
+                int initialBet = scanner.nextInt();
+                pot.setCurrentBet(initialBet);
+                organizeBets(players.get(bigBlind), pot.getCurrentBet(),pot); // Find a more efficient way to update the pot
                 System.out.println();
                 System.out.println(players.get(bigBlind - 1).getName() + ", you are the Small Blind this round, so you must bet half of what " + players.get(bigBlind).getName() + " bet.");
-                organizeBets(players.get(bigBlind - 1), betAmount / 2, pot);
+                organizeBets(players.get(bigBlind - 1), pot.getCurrentBet() / 2, pot);
             }
 
             System.out.println();
@@ -131,10 +130,10 @@ public class Poker implements HandType {
                         displayCardsAndMoney(players.get(i));
                         break;
                     case 2:
-                        organizeBets(players.get(i), betAmount, pot);
+                        organizeBets(players.get(i), pot.getCurrentBet(), pot);
                         break;
                     case 3:
-                        raise(scanner, betAmount, players.get(i), pot);
+                        raise(scanner, pot.getCurrentBet(), players.get(i), pot);
                         break;
                     case 4:
                         fold(players.get(i), foldedPlayers, i, players);

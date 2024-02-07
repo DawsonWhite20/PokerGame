@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7b82a671-4ea8-4448-83c3-28582ae63476" name="Changes" comment="Started turning actions into methods.">
-      <change afterPath="$PROJECT_DIR$/src/Pot.java" afterDir="false" />
+    <list default="true" id="7b82a671-4ea8-4448-83c3-28582ae63476" name="Changes" comment="Turned first round actions into methods and made pot into an object.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Poker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Poker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pot.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +148,14 @@
       <option name="project" value="LOCAL" />
       <updated>1707261547533</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Turned first round actions into methods and made pot into an object.">
+      <created>1707328287243</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1707328287243</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -175,6 +182,8 @@
     <MESSAGE value="Converted players array into an ArrayList." />
     <MESSAGE value="Finished fold action." />
     <MESSAGE value="Started turning actions into methods." />
-    <option name="LAST_COMMIT_MESSAGE" value="Started turning actions into methods." />
+    <MESSAGE value="Turned first round actions into methods and made pot into an object" />
+    <MESSAGE value="Turned first round actions into methods and made pot into an object." />
+    <option name="LAST_COMMIT_MESSAGE" value="Turned first round actions into methods and made pot into an object." />
   </component>
 </project>
