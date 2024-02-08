@@ -23,7 +23,7 @@ public class Poker implements HandType {
     }
 
     public static void raise(Scanner scanner, int betAmount, Player requestedPlayer, Pot pot) {
-        System.out.print("How much would you like to raise: ");                    // Need to update betAmount
+        System.out.print("How much would you like to raise: ");
         int raiseAmount = scanner.nextInt();
         if(raiseAmount >= betAmount) {
             organizeBets(requestedPlayer, raiseAmount + betAmount, pot);
@@ -39,6 +39,10 @@ public class Poker implements HandType {
         System.out.println(requestedPlayer.getName() + " has folded.");
         foldedPlayers[position] = players.remove(position);
         System.out.println();
+    }
+
+    public static void printMenu() {
+
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -101,7 +105,7 @@ public class Poker implements HandType {
             if (bigBlind + 1 >= players.size()) {
                 bigBlind = -1;
             }
-            for(int i = bigBlind + 1;i < players.size();i++) { // Figure out how to do rotation after coding actions
+            for(int i = bigBlind + 1;i < players.size();i++) { // Figure out how to do rotation after coding actions; first round actions for loop
                 while (true) {
                     try {
                         System.out.println(players.get(i).getName() + ", it is your turn. What would you like to do?\n----------------");
@@ -110,7 +114,6 @@ public class Poker implements HandType {
                                 (2) Call
                                 (3) Raise
                                 (4) Fold"""); // First round actions
-                        //scanner.nextLine();
                         playerChoice = scanner.nextInt();
                         if (playerChoice < 1 || playerChoice > 4) {
                             System.out.println();
@@ -140,8 +143,20 @@ public class Poker implements HandType {
                         break;
                 }
             }
+
+            for(int j = 0;j < 4;j++) {
+                for(int k = 0;k < players.size();k++) {
+                    while (true) {
+                        try {
+                            System.out.println(players.get(k).getName() + ", it is your turn. What would you like to do?\n----------------");
+                        } catch (InputMismatchException inputMismatchException) {
+                            System.out.println();
+                            System.out.println("Please select a number corresponding with the action you want to perform.\n");
+                        }
+                    }
+                }
+            }
             playerChoice = 5; // Ends loop immediately for testing purposes
         } while (playerChoice != 5);
-
     }
 }
