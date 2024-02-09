@@ -17,7 +17,7 @@ public class Poker implements HandType {
         System.out.println(bettingPlayer.getName() + " has bet $" + bettingAmount + " making the pot now $" + pot.getMoney() + ".");
     }
 
-    public static void displayCardsAndMoney(Player requestedPlayer) { // Maybe make methods below into an interface
+    public static void displayCardsAndMoney(Player requestedPlayer) {
         requestedPlayer.displayPlayerInformation();
         System.out.println();
     }
@@ -41,9 +41,7 @@ public class Poker implements HandType {
         System.out.println();
     }
 
-    public static void printMenu() {
 
-    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         DeckOfCards deck = new DeckOfCards();
@@ -105,10 +103,10 @@ public class Poker implements HandType {
             if (bigBlind + 1 >= players.size()) {
                 bigBlind = -1;
             }
-            for(int i = bigBlind + 1;i < players.size();i++) { // Figure out how to do rotation after coding actions; first round actions for loop
+            for(int i = bigBlind + 1;i != 1;i++) { // Figure out how to do rotation after coding actions; first round actions for loop
                 while (true) {
                     try {
-                        System.out.println(players.get(i).getName() + ", it is your turn. What would you like to do?\n----------------");
+                        System.out.println(players.get(i).getName() + ", it is your turn. What would you like to do?\n----------------"); // Make into method using boolean to add check option for subsequent rounds
                         System.out.println("""
                                 (1) Display hand and money
                                 (2) Call
@@ -142,21 +140,59 @@ public class Poker implements HandType {
                         fold(players.get(i), foldedPlayers, i, players);
                         break;
                 }
+                if (i + 1 >= players.size()) { // Loops back to the beginning of the ArrayList; doesn't work in the case of players folding
+                    i = -1;
+                }
             }
 
-            for(int j = 0;j < 4;j++) {
+            Player.getCommunityCards()[0] = deck.getNextCard();
+            Player.getCommunityCards()[1] = deck.getNextCard();
+            Player.getCommunityCards()[2] = deck.getNextCard();
+            /*for(int j = 0;j < 4;j++) {
                 for(int k = 0;k < players.size();k++) {
                     while (true) {
                         try {
                             System.out.println(players.get(k).getName() + ", it is your turn. What would you like to do?\n----------------");
+                            System.out.println("""
+                                (1) Display hand and money
+                                (2) Call
+                                (3) Raise
+                                (4) Fold
+                                (5) Check"""); // First round actions
+                            playerChoice = scanner.nextInt();
+                            if (playerChoice < 1 || playerChoice > 4) {
+                                System.out.println();
+                                System.out.println("That is not a valid choice.\n");
+                                continue;
+                            }
+                            break;
                         } catch (InputMismatchException inputMismatchException) {
                             System.out.println();
                             System.out.println("Please select a number corresponding with the action you want to perform.\n");
                         }
                     }
+                    System.out.println();
+
+                    switch(playerChoice) {
+                        case 1:
+                            displayCardsAndMoney(players.get(k));
+                            break;
+                        case 2:
+                            organizeBets(players.get(k), pot.getCurrentBet(), pot);
+                            break;
+                        case 3:
+                            raise(scanner, pot.getCurrentBet(), players.get(k), pot);
+                            break;
+                        case 4:
+                            fold(players.get(k), foldedPlayers, k, players);
+                            break;
+                        case 5:
+                            System.out.println(players.get(k) + " has checked.");
+                            break;
+                    }
                 }
-            }
-            playerChoice = 5; // Ends loop immediately for testing purposes
-        } while (playerChoice != 5);
+            }*/
+            playerChoice = 6; // Ends loop immediately for testing purposes
+        } while (playerChoice != 6);
     }
 }

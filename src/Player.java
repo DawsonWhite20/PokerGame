@@ -23,6 +23,10 @@ public class Player {
         money += amount;
     }
 
+    public static String[] getCommunityCards() {
+        return communityCards;
+    }
+
     public void subtractMoney(int amount) {
         if (money - amount < 0) {
             System.out.println("You do not have enough money to bet that much.");

@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7b82a671-4ea8-4448-83c3-28582ae63476" name="Changes" comment="Converted players array into an ArrayList.">
+    <list default="true" id="7b82a671-4ea8-4448-83c3-28582ae63476" name="Changes" comment="Started subsequent betting rounds.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Poker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Poker.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -157,7 +158,14 @@
       <option name="project" value="LOCAL" />
       <updated>1707328287243</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Started subsequent betting rounds.">
+      <created>1707356902166</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1707356902166</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -186,6 +194,7 @@
     <MESSAGE value="Started turning actions into methods." />
     <MESSAGE value="Turned first round actions into methods and made pot into an object" />
     <MESSAGE value="Turned first round actions into methods and made pot into an object." />
-    <option name="LAST_COMMIT_MESSAGE" value="Turned first round actions into methods and made pot into an object." />
+    <MESSAGE value="Started subsequent betting rounds." />
+    <option name="LAST_COMMIT_MESSAGE" value="Started subsequent betting rounds." />
   </component>
 </project>
