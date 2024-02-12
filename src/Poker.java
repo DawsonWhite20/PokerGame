@@ -15,6 +15,7 @@ public class Poker implements HandType {
         bettingPlayer.subtractMoney(bettingAmount);
         pot.addMoney(bettingAmount);
         System.out.println(bettingPlayer.getName() + " has bet $" + bettingAmount + " making the pot now $" + pot.getMoney() + ".");
+        System.out.println();
     }
 
     public static void displayCardsAndMoney(Player requestedPlayer) {
@@ -126,19 +127,14 @@ public class Poker implements HandType {
                 }
                 System.out.println();
 
-                switch(playerChoice) {
-                    case 1:
-                        displayCardsAndMoney(players.get(i));
-                        break;
-                    case 2:
-                        organizeBets(players.get(i), pot.getCurrentBet(), pot);
-                        break;
-                    case 3:
-                        raise(scanner, pot.getCurrentBet(), players.get(i), pot);
-                        break;
-                    case 4:
+                switch (playerChoice) {
+                    case 1 -> displayCardsAndMoney(players.get(i));
+                    case 2 -> organizeBets(players.get(i), pot.getCurrentBet(), pot);
+                    case 3 -> raise(scanner, pot.getCurrentBet(), players.get(i), pot);
+                    case 4 -> {
                         fold(players.get(i), foldedPlayers, i, players);
-                        break;
+                        i--;
+                    }
                 }
                 if (i + 1 >= players.size()) { // Loops back to the beginning of the ArrayList; doesn't work in the case of players folding
                     i = -1;
@@ -148,7 +144,8 @@ public class Poker implements HandType {
             Player.getCommunityCards()[0] = deck.getNextCard();
             Player.getCommunityCards()[1] = deck.getNextCard();
             Player.getCommunityCards()[2] = deck.getNextCard();
-            /*for(int j = 0;j < 4;j++) {
+            System.out.println("The flop cards are: " + Player.getCommunityCards()[0] + ", " + Player.getCommunityCards()[1] + ", " + Player.getCommunityCards()[2] + ".\n");
+            for(int j = 0;j < 4;j++) {
                 for(int k = 0;k < players.size();k++) {
                     while (true) {
                         try {
@@ -160,7 +157,7 @@ public class Poker implements HandType {
                                 (4) Fold
                                 (5) Check"""); // First round actions
                             playerChoice = scanner.nextInt();
-                            if (playerChoice < 1 || playerChoice > 4) {
+                            if (playerChoice < 1 || playerChoice > 5) {
                                 System.out.println();
                                 System.out.println("That is not a valid choice.\n");
                                 continue;
@@ -173,25 +170,27 @@ public class Poker implements HandType {
                     }
                     System.out.println();
 
-                    switch(playerChoice) {
-                        case 1:
-                            displayCardsAndMoney(players.get(k));
-                            break;
-                        case 2:
-                            organizeBets(players.get(k), pot.getCurrentBet(), pot);
-                            break;
-                        case 3:
-                            raise(scanner, pot.getCurrentBet(), players.get(k), pot);
-                            break;
-                        case 4:
-                            fold(players.get(k), foldedPlayers, k, players);
-                            break;
-                        case 5:
-                            System.out.println(players.get(k) + " has checked.");
-                            break;
+                    switch (playerChoice) {
+                        case 1 -> displayCardsAndMoney(players.get(k));
+                        case 2 -> organizeBets(players.get(k), pot.getCurrentBet(), pot);
+                        case 3 -> raise(scanner, pot.getCurrentBet(), players.get(k), pot);
+                        case 4 -> fold(players.get(k), foldedPlayers, k, players);
+                        case 5 -> {
+                            System.out.println(players.get(k).getName() + " has checked.");
+                            System.out.println();
+                        }
                     }
                 }
-            }*/
+                // Checks if the turn or river card should be given out
+                if (j == 0) {
+                    Player.getCommunityCards()[3] = deck.getNextCard();
+                    System.out.println("The turn card is " + Player.getCommunityCards()[3] + ".\n");
+                }
+                else if (j == 1) {
+                    Player.getCommunityCards()[4] = deck.getNextCard();
+                    System.out.println("The river card is " + Player.getCommunityCards()[4] + ".\n");
+                }
+            }
             playerChoice = 6; // Ends loop immediately for testing purposes
         } while (playerChoice != 6);
     }

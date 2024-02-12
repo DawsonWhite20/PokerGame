@@ -51,6 +51,6 @@ public class Player {
             }
             System.out.println(hand[i]);
         }
-        System.out.println("\nMoney: $" + money + "\n----------------\n");
+        System.out.print("\nMoney: $" + money + "\n----------------\n");
     }
 }
