@@ -52,12 +52,24 @@ public class Poker implements HandType {
                                 (1) Display hand and money
                                 (2) Call
                                 (3) Raise
-                                (4) Fold"""); // First round actions
+                                (4) Fold""");
+                if(secondPhase == true) {
+                    System.out.println("(5) Check");
+                }
                 playerChoice = scanner.nextInt();
-                if (playerChoice < 1 || playerChoice > 4) {
-                    System.out.println();
-                    System.out.println("That is not a valid choice.\n");
-                    continue;
+                if (secondPhase == false) {
+                    if (playerChoice < 1 || playerChoice > 4) {
+                        System.out.println();
+                        System.out.println("That is not a valid choice.\n");
+                        continue;
+                    }
+                }
+                else if (secondPhase == true) {
+                    if (playerChoice < 1 || playerChoice > 5) {
+                        System.out.println();
+                        System.out.println("That is not a valid choice.\n");
+                        continue;
+                    }
                 }
                 break;
             } catch (InputMismatchException inputMismatchException) {
@@ -66,7 +78,6 @@ public class Poker implements HandType {
             }
             catch (IndexOutOfBoundsException indexOutOfBoundsException) {
                 System.out.println("All players have folded!");
-                return;
             }
         }
         System.out.println();

@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7b82a671-4ea8-4448-83c3-28582ae63476" name="Changes" comment="Started subsequent betting rounds.">
-      <change afterPath="$PROJECT_DIR$/src/MayNeedLater.java" afterDir="false" />
+    <list default="true" id="7b82a671-4ea8-4448-83c3-28582ae63476" name="Changes" comment="Started flop, river, and turn actions.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Poker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Poker.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
