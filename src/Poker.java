@@ -43,6 +43,36 @@ public class Poker implements HandType {
     }
 
 
+    public static int displayMenu(boolean secondPhase, ArrayList<Player> players, int position, Scanner scanner) {
+        int playerChoice;
+        while (true) {
+            try {
+                System.out.println(players.get(position).getName() + ", it is your turn. What would you like to do?\n----------------"); // Make into method using boolean to add check option for subsequent rounds
+                System.out.println("""
+                                (1) Display hand and money
+                                (2) Call
+                                (3) Raise
+                                (4) Fold"""); // First round actions
+                playerChoice = scanner.nextInt();
+                if (playerChoice < 1 || playerChoice > 4) {
+                    System.out.println();
+                    System.out.println("That is not a valid choice.\n");
+                    continue;
+                }
+                break;
+            } catch (InputMismatchException inputMismatchException) {
+                System.out.println();
+                System.out.println("Please select a number corresponding with the action you want to perform.\n");
+            }
+            catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+                System.out.println("All players have folded!");
+                return;
+            }
+        }
+        System.out.println();
+        return playerChoice;
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         DeckOfCards deck = new DeckOfCards();
@@ -83,9 +113,9 @@ public class Poker implements HandType {
         System.out.println();
 
         // Game starts here and loops for each round the player wants to play
+        int playerChoice = 0;
         int timesPlayed = 0; // Used to keep track of blinds for each round
         int bigBlind = timesPlayed + 2;
-        int playerChoice;
         do {
             if(players.size() > 2) {
                 System.out.print(players.get(bigBlind).getName() + ", you are the Big Blind this round. How much would you like to bet: ");
@@ -104,28 +134,12 @@ public class Poker implements HandType {
             if (bigBlind + 1 >= players.size()) {
                 bigBlind = -1;
             }
+            boolean secondPhase = false;
             for(int i = bigBlind + 1;i != 1;i++) { // Figure out how to do rotation after coding actions; first round actions for loop
-                while (true) {
-                    try {
-                        System.out.println(players.get(i).getName() + ", it is your turn. What would you like to do?\n----------------"); // Make into method using boolean to add check option for subsequent rounds
-                        System.out.println("""
-                                (1) Display hand and money
-                                (2) Call
-                                (3) Raise
-                                (4) Fold"""); // First round actions
-                        playerChoice = scanner.nextInt();
-                        if (playerChoice < 1 || playerChoice > 4) {
-                            System.out.println();
-                            System.out.println("That is not a valid choice.\n");
-                            continue;
-                        }
-                        break;
-                    } catch (InputMismatchException inputMismatchException) {
-                        System.out.println();
-                        System.out.println("Please select a number corresponding with the action you want to perform.\n");
-                    }
-                }
-                System.out.println();
+
+
+                playerChoice = displayMenu(secondPhase, players, i, scanner); // Possible shorter way to display menu
+
 
                 switch (playerChoice) {
                     case 1 -> displayCardsAndMoney(players.get(i));
@@ -141,34 +155,34 @@ public class Poker implements HandType {
                 }
             }
 
-            Player.getCommunityCards()[0] = deck.getNextCard();
-            Player.getCommunityCards()[1] = deck.getNextCard();
-            Player.getCommunityCards()[2] = deck.getNextCard();
-            System.out.println("The flop cards are: " + Player.getCommunityCards()[0] + ", " + Player.getCommunityCards()[1] + ", " + Player.getCommunityCards()[2] + ".\n");
+
+            // Replace with "flop round" and do this for river and turn rounds
+            System.out.println("""
+                    ==============
+                    Starting second phase
+                    ==============\n""");
+
+            secondPhase = true; // Leads to changes in menu
+            String flopCards[] = new String[5];
+
+            for(int i = 0;i < flopCards.length;i++) {
+                flopCards[i] = deck.getNextCard();
+            }
+
+            for(int j = 0;j < 3;j++) {
+                for(int k = 0;k < players.size();k++) {
+                    players.get(k).getHand()[2 + j] = flopCards[j];
+                }
+            }
+
+
+            System.out.println("\nThe flop cards are: " + players.get(0).getHand()[2]  + ", " + players.get(0).getHand()[3] + ", " + players.get(0).getHand()[4] + ".\n");
             for(int j = 0;j < 4;j++) {
                 for(int k = 0;k < players.size();k++) {
-                    while (true) {
-                        try {
-                            System.out.println(players.get(k).getName() + ", it is your turn. What would you like to do?\n----------------");
-                            System.out.println("""
-                                (1) Display hand and money
-                                (2) Call
-                                (3) Raise
-                                (4) Fold
-                                (5) Check"""); // First round actions
-                            playerChoice = scanner.nextInt();
-                            if (playerChoice < 1 || playerChoice > 5) {
-                                System.out.println();
-                                System.out.println("That is not a valid choice.\n");
-                                continue;
-                            }
-                            break;
-                        } catch (InputMismatchException inputMismatchException) {
-                            System.out.println();
-                            System.out.println("Please select a number corresponding with the action you want to perform.\n");
-                        }
-                    }
-                    System.out.println();
+
+
+                    playerChoice = displayMenu(secondPhase, players, k, scanner);
+
 
                     switch (playerChoice) {
                         case 1 -> displayCardsAndMoney(players.get(k));
@@ -183,12 +197,16 @@ public class Poker implements HandType {
                 }
                 // Checks if the turn or river card should be given out
                 if (j == 0) {
-                    Player.getCommunityCards()[3] = deck.getNextCard();
-                    System.out.println("The turn card is " + Player.getCommunityCards()[3] + ".\n");
+                    for(int i = 0;i < players.size();i++) {
+                        players.get(i).getHand()[5] = flopCards[3];
+                    }
+                    System.out.println("The turn card is " + players.get(0).getHand()[5] + ".\n");
                 }
                 else if (j == 1) {
-                    Player.getCommunityCards()[4] = deck.getNextCard();
-                    System.out.println("The river card is " + Player.getCommunityCards()[4] + ".\n");
+                    for(int i =0;i < players.size();i++) {
+                        players.get(i).getHand()[6] = flopCards[4];
+                    }
+                    System.out.println("The river card is " + players.get(0).getHand()[6] + ".\n");
                 }
             }
             playerChoice = 6; // Ends loop immediately for testing purposes
